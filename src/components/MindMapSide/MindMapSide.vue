@@ -7,7 +7,6 @@ import { useNoteStore } from '@/stores'
 
 const notesStore = useNoteStore()
 const { openCommandModal } = useCommandModal()
-const role = localStorage.getItem('role')
 
 function handleNewClick() {
   const item = notesStore.addNote('')
@@ -25,7 +24,7 @@ function handleLogout() {
   <NLayoutSider collapse-mode="width" :collapsed-width="0" :width="360" show-trigger="bar" bordered>
     <div class="h-full w-full bg-[#0F1729] overflow-hidden">
       <div class="p-2 flex items-center justify-between">
-        <NButton v-if="role !== 'User'" type="primary" @click="handleNewClick">
+        <NButton type="primary" @click="handleNewClick">
           <template #icon>
             <Icon icon="material-symbols:add" />
           </template>

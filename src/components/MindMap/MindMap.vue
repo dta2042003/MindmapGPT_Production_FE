@@ -17,7 +17,10 @@ import TopicChildNode from '@/components/Nodes/TopicChildNode.vue'
 import TopicNode from '@/components/Nodes/TopicNode.vue'
 import { useNodeOperate } from '@/hooks/useNodeOperate'
 import Help from '@/components/Help.vue'
+import { useRouter } from 'vue-router';
 
+const role = localStorage.getItem('role')
+const router = useRouter();
 const containerRef = ref()
 const nodeStore = useNodeStore()
 const historyStateRef = ref()
@@ -48,6 +51,11 @@ watch(
     }
   },
 )
+
+function goToPayment() {
+  router.push('/payment');
+}
+
 function useRegister() {
   // Connector
   Graph.registerConnector(
@@ -219,6 +227,14 @@ function useHelpButton() {
     </div>
     <div ref="containerRef" />
     <div class="absolute right-8 bottom-8">
+      <!-- ✅ Nút Mua Premium -->
+      <NButton v-if="role !== 'Admin'" size="large" type="primary" @click="goToPayment">
+        <template #icon>
+          <Icon icon="mdi:credit-card-outline" width="20" color="white" />
+        </template>
+        Mua Premium
+      </NButton>
+      
       <NButton size="large" @click="openGuideLine">
         <template #icon>
           <Icon icon="material-symbols:question-mark-rounded" width="20" color="white" />

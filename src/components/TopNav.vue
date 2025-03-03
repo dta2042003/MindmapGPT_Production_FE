@@ -15,7 +15,7 @@ import { useChatStore } from '@/stores'
 import CommandModal from '@/components/command/CommandModal.vue'
 
 // import { useCommandModal } from '@/components/command/commandModal'
-
+const role = ref(localStorage.getItem('role') || 'User')
 const showChatBox = ref(false)
 const showShareCard = ref(false)
 const showSetting = ref(false)
@@ -74,6 +74,16 @@ onMounted(() => {
           Get Start
         </span>
       </div>
+      <!-- ✅ Hiển thị loại gói tài khoản -->
+    <div v-if="role" class="role-display">
+      <span>Plan: 
+        <strong :class="role === 'Admin' ? 'text-green-400' : 'text-red-400'">
+          {{ role === 'Admin' ? 'Premium' : 'Standard' }}
+        </strong>
+      </span>
+    </div>
+
+
       <!-- <div class="button" @click="openFileUploadPanel">
         <span class="bg-via-gray-900 ">
           Get Start With PDF

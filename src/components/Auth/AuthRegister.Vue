@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useForm, useField } from 'vee-validate';
-import { registerUser } from '@/api/auth';
+import { registerUser } from '../../api/auth';
 import * as yup from 'yup'; 
 import { NForm, NFormItem, NInput, NButton } from 'naive-ui';
 
