@@ -33,7 +33,8 @@ watch(() => newMessage.value, (val) => {
 
 function sendMessage() {
   if (newMessage.value.trim() !== '') {
-    emit('sendMessage', newMessage.value.trim())
+    const finalMessage = `${newMessage.value.trim()} (sử dụng ngôn ngữ tiếng Việt cho sơ đồ tư duy này)`;
+    emit('sendMessage', finalMessage);
     newMessage.value = ''
   }
 }
