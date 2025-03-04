@@ -5,7 +5,7 @@ import { computed, inject, onMounted } from 'vue'
 import { useContainer } from './useContainer'
 import { useNodeStore } from '@/stores'
 import { useGenerateMarkdown } from '@/hooks/useGenerateMarkdown'
-
+const role = localStorage.getItem('role')
 const getNode: (() => Node | undefined) | undefined = inject('getNode')
 const { containerRef, updateContainerSize } = useContainer()
 const nodeStore = useNodeStore()
@@ -17,8 +17,9 @@ onMounted(() => {
 })
 </script>
 
-<template>
-  <div ref="containerRef" class="sticky-note">
+
+<template >
+  <div v-if="role !=='User'" ref="containerRef" class="sticky-note">
     <div class="sticky-note-content" v-html="content" />
     <div class="sticky-note-corner" />
   </div>

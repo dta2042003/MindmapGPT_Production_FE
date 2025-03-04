@@ -4,12 +4,17 @@ import { Icon } from '@iconify/vue'
 import NoteCard from './NoteCard.vue'
 import { useCommandModal } from '@/components/command/commandModal'
 import { useNoteStore } from '@/stores'
+import { messageError } from '@/hooks/message'
 
 const notesStore = useNoteStore()
 const { openCommandModal } = useCommandModal()
 const role = localStorage.getItem('role')
 
 function handleNewClick() {
+  if(role == "User") {
+    messageError("Please purchase the $1.37 package to use this feature.");
+    return;
+  }
   const item = notesStore.addNote('')
   notesStore.setCurrentEditId(item.id)
 }
@@ -25,13 +30,13 @@ function handleLogout() {
   <NLayoutSider collapse-mode="width" :collapsed-width="0" :width="360" show-trigger="bar" bordered>
     <div class="h-full w-full bg-[#0F1729] overflow-hidden">
       <div class="p-2 flex items-center justify-between">
-        <NButton v-if="role !== 'User'" type="primary" @click="handleNewClick">
+        <NButton type="primary" @click="handleNewClick">
           <template #icon>
             <Icon icon="material-symbols:add" />
           </template>
           New
         </NButton>
-        <NButton type="primary" ghost @click="openCommandModal()">
+        <NButton v-if="role !== 'User'" type="primary" ghost @click="openCommandModal()">
           <template #icon>
             <Icon icon="material-symbols:search" />
           </template>

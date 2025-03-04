@@ -7,8 +7,8 @@ import type { Message } from '@/stores'
 import { useChatStore, useNodeStore, useNoteStore } from '@/stores'
 import { useCopyText } from '@/utils'
 import { useGenerateMarkdown } from '@/hooks/useGenerateMarkdown'
-import { messageSuccess } from '@/hooks/message'
-
+import { messageError, messageSuccess } from '@/hooks/message'
+const role = localStorage.getItem('role')
 const props = defineProps({
   message: {
     type: Object as PropType<Message>,
@@ -54,7 +54,10 @@ function handleAddToNote(content: string) {
 function handleGenerateNode(content: string) {
   nodeStore.generateNode(content)
 }
+
 </script>
+
+
 
 <template>
   <div
@@ -66,9 +69,11 @@ function handleGenerateNode(content: string) {
         {{ props.message.role.toUpperCase() }}
       </div>
       <div v-show="showButtonGroup" class="flex justify-end items-center gap-2">
-        <NButton
-          v-if="isAssistant" strong secondary type="primary" size="small"
-          @click="handleAddToNote(props.message.content)"
+        <NButton 
+          v-if="isAssistant" strong secondary type="primary" size="small" 
+          @click="() => role === 'User' 
+          ? messageError('Please purchase the $1.37 package to use this feature.') 
+          : handleAddToNote(props.message.content)"
         >
           <template #icon>
             <Icon icon="material-symbols:note-alt-outline" />
@@ -84,12 +89,14 @@ function handleGenerateNode(content: string) {
           </template>
           MindMap
         </NButton>
-        <NButton strong secondary type="primary" size="small" @click="useCopyText(props.message.content)">
+        <NButton strong secondary type="primary" size="small" @click="() => role === 'User' 
+          ? messageError('Please purchase the $1.37 package to use this feature.') 
+          : useCopyText(props.message.content)">
           <template #icon>
             <Icon icon="material-symbols:content-copy-outline-rounded" />
           </template>
         </NButton>
-        <NPopconfirm
+        <!-- <NPopconfirm
           @positive-click="confirm(props.message.id)"
         >
           <template #trigger>
@@ -100,7 +107,7 @@ function handleGenerateNode(content: string) {
             </NButton>
           </template>
           Are you sure delete this message?
-        </NPopconfirm>
+        </NPopconfirm> -->
       </div>
     </div>
     <div class="mt-1 text-sm inline-block break-words pl-2" v-html="robotContent" />

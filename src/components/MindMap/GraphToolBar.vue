@@ -6,7 +6,9 @@ import { ref, watch } from 'vue'
 import { Icon } from '@iconify/vue'
 import { NButton, NTooltip } from 'naive-ui'
 import type { HistoryState } from './types'
+import { messageError } from '@/hooks/message'
 
+const role = localStorage.getItem('role')
 const props = defineProps({
   graph: {
     type: Object as PropType<Graph> | undefined,
@@ -87,7 +89,7 @@ const buttonList = ref([
     rotate: 3,
     text: 'Export',
     tooltip: 'Export to png',
-    handler: () => {
+    handler: () => { role === 'User' ? messageError('Please purchase the $1.37 package to use this feature.') :
       props.graph.toPNG((dataUri) => {
         DataUri.downloadDataUri(dataUri, 'mind-map.png')
       }, {

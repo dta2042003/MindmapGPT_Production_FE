@@ -10,8 +10,10 @@ import { InputBox } from '@/components/Chat'
 import { useGlobalStore, useNodeStore } from '@/stores'
 import { useGenerateMarkdown } from '@/hooks/useGenerateMarkdown'
 import { useEditing } from '@/hooks/useNodeEdit'
-import { messageSuccess } from '@/hooks/message'
-
+import { messageError, messageSuccess } from '@/hooks/message'
+import { watch } from 'vue'
+const childCount = ref(0); // Biến đếm số lần thêm child node
+const role = localStorage.getItem('role')
 const getNode: (() => Node | undefined) | undefined = inject('getNode')
 const globalStore = useGlobalStore()
 const nodeRef = ref<Node>()
@@ -21,7 +23,7 @@ const {
   isCanEditNode,
   inputValue,
   handleDoubleClick,
-  handleKeydown,
+  handleKeydown,  
   handleBlur,
 } = useEditing(() => {
   nextTick(() => {
@@ -39,6 +41,7 @@ const {
   sendMessage,
   handleNodeClick,
 } = useNodeMenu()
+
 
 function initData(node: Node) {
   nodeRef.value = node
@@ -80,6 +83,7 @@ function useNodeMenu() {
       width: '20',
     })
   }
+
   const menuItems = ref([
     {
       key: 'Add child',
@@ -88,16 +92,17 @@ function useNodeMenu() {
       handler: () => {
         handleAddChild()
       },
+      
     },
-    {
-      key: 'Brain storm',
-      label: 'Brain storm',
-      icon: renderIcon('carbon:star-review'),
-      handler: () => {
-        initModal()
-        isShowModal.value = true
-      },
-    },
+    // {
+    //   key: 'Brain storm',
+    //   label: 'Brain storm',
+    //   icon: renderIcon('carbon:star-review'),
+    //   handler: () => {
+    //     initModal()
+    //     isShowModal.value = true
+    //   },
+    // },
   ])
   const lastMessage = ref('')
 
@@ -114,15 +119,19 @@ function useNodeMenu() {
     nodeStore.clearMessage()
   }
   function handleAddChild() {
-    if (!nodeRef.value)
-      return
+    if (!nodeRef.value) return;
     const {
       addChildNode, render,
     } = nodeRef.value.getData()
     const { id } = nodeRef.value
     const type = nodeRef.value.prop('type')
+    if(role == "User") {
+      messageError("Please purchase the $1.37 package to use this feature.");
+      return;
+    }
     if (addChildNode(id, type)) {
-      messageSuccess('Add child node success!')
+      childCount.value++;
+      messageSuccess(`Add child node success!`);
       render()
     }
   }
@@ -135,9 +144,10 @@ function useNodeMenu() {
     } = nodeRef.value.getData()
     const { id } = nodeRef.value
     const newNode = addChildNode(id, node?.type, data.label)
+    
     if (newNode) {
       render()
-      messageSuccess('Add child node success!')
+      messageSuccess('Add child node success!!!!!')
     }
   }
 
