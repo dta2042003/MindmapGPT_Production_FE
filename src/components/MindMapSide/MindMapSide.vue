@@ -8,7 +8,6 @@ import { messageError } from '@/hooks/message'
 
 const notesStore = useNoteStore()
 const { openCommandModal } = useCommandModal()
-const role = localStorage.getItem('role')
 
 function handleNewClick() {
   if(role == "User") {
