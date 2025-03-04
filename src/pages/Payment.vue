@@ -38,7 +38,7 @@ const goToHome = () => {
       <!-- ✅ Cột 1: Thông tin chuyển khoản -->
       <div style="width: 50%; padding-right: 20px;">
         <h2>Mua gói Premium</h2>
-        <h3>Số tiền: <span style="color: #ff4d4f;">{{ amount.toLocaleString() }} VND</span></h3>
+        <h3>Số tiền: <span style="color: #ff4d4f;">{{ amount.toLocaleString() }} VND ($1.37)</span></h3>
 
         <h3>Thông tin chuyển khoản</h3>
         <p><strong>Ngân hàng:</strong> {{ bankName }}</p>

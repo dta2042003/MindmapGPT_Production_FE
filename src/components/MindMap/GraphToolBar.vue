@@ -89,7 +89,7 @@ const buttonList = ref([
     rotate: 3,
     text: 'Export',
     tooltip: 'Export to png',
-    handler: () => { role === 'User' ? messageError('Please purchase the $1.37 package to use this feature.') :
+    handler: () => { role === 'User' ? messageError('  Unlock ( All Features ) with the ( Premium package )  ') :
       props.graph.toPNG((dataUri) => {
         DataUri.downloadDataUri(dataUri, 'mind-map.png')
       }, {

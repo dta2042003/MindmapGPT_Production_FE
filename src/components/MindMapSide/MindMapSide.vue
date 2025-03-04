@@ -11,7 +11,7 @@ const { openCommandModal } = useCommandModal()
 
 function handleNewClick() {
   if(role == "User") {
-    messageError("Please purchase the $1.37 package to use this feature.");
+    messageError("  Unlock ( All Features ) with the ( Premium package )  ");
     return;
   }
   const item = notesStore.addNote('')

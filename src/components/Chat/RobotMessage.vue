@@ -72,7 +72,7 @@ function handleGenerateNode(content: string) {
         <NButton 
           v-if="isAssistant" strong secondary type="primary" size="small" 
           @click="() => role === 'User' 
-          ? messageError('Please purchase the $1.37 package to use this feature.') 
+          ? messageError('  Unlock ( All Features ) with the ( Premium package )  ')
           : handleAddToNote(props.message.content)"
         >
           <template #icon>
@@ -90,7 +90,7 @@ function handleGenerateNode(content: string) {
           MindMap
         </NButton>
         <NButton strong secondary type="primary" size="small" @click="() => role === 'User' 
-          ? messageError('Please purchase the $1.37 package to use this feature.') 
+          ? messageError('  Unlock ( All Features ) with the ( Premium package )  ') 
           : useCopyText(props.message.content)">
           <template #icon>
             <Icon icon="material-symbols:content-copy-outline-rounded" />

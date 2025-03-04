@@ -126,7 +126,7 @@ function useNodeMenu() {
     const { id } = nodeRef.value
     const type = nodeRef.value.prop('type')
     if(role == "User") {
-      messageError("Please purchase the $1.37 package to use this feature.");
+      messageError("   Unlock (All Features) with the (Premium package)   ");
       return;
     }
     if (addChildNode(id, type)) {
