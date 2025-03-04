@@ -5,7 +5,7 @@ import NoteCard from './NoteCard.vue'
 import { useCommandModal } from '@/components/command/commandModal'
 import { useNoteStore } from '@/stores'
 import { messageError } from '@/hooks/message'
-
+const role = localStorage.getItem('role')
 const notesStore = useNoteStore()
 const { openCommandModal } = useCommandModal()
 
